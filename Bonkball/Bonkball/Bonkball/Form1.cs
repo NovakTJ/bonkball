@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Bonkball
 {
@@ -22,14 +23,20 @@ namespace Bonkball
         float vx,x,y;
         float vy;
         float speed=3;
+        Okrugao Protagonist;
+        Okrugao NPC;
+        List<Okrugao> L;
         private void Form1_Load(object sender, EventArgs e)
         {
             //G = pictureBox1.CreateGraphics();
             p = new Pen(Color.Red);
             b = new SolidBrush(Color.Red);
-            vx =2; vy = 0;
-            x = 10;
-            y = 10;
+            Protagonist = new Okrugao(10, 10);
+            Protagonist.vx = 2; Protagonist.vy = 0;
+            NPC = new Okrugao(100, 100);
+            L = new List<Okrugao>();
+            L.Add(Protagonist);
+            L.Add(NPC);
         }
         int i = 1;
 
@@ -37,19 +44,19 @@ namespace Bonkball
         {
             if (e.KeyValue == 'A')
             {
-                vx = -speed;
+                Protagonist.vx = -speed;
             }
             if (e.KeyValue == 'D')
             {
-                vx = speed;
+                Protagonist.vx = speed;
             }
             if (e.KeyValue == 'W')
             {
-                vy = -speed;
+                Protagonist.vy = -speed;
             }
             if (e.KeyValue == 'S')
             {
-                vy = speed;
+                Protagonist.vy = speed;
             }
         }
 
@@ -57,34 +64,52 @@ namespace Bonkball
         {
             if (e.KeyValue == 'A')
             {
-                vx = 0;
+                Protagonist.vx = 0;
             }
             if (e.KeyValue == 'D')
             {
-                vx = 0;
+                Protagonist.vx = 0;
             }
             if (e.KeyValue == 'W')
             {
-                vy = 0;
+                Protagonist.vy = 0;
             }
             if (e.KeyValue == 'S')
             {
-                vy = 0;
+                Protagonist.vy = 0;
             }
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillEllipse(b, x, y, 200, 200);
+            foreach (Okrugao lik in L)
+            {
+
+                e.Graphics.FillEllipse(b, lik.x, lik.y, 20, 20);
+
+            }
             label1.Text = i.ToString();
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             pictureBox1.Refresh();
+            fajl();
+            foreach (Okrugao lik in L){
+                lik.tick();
+            }
+            //Protagonist.tick();
             i++;
-            x += vx;
-            y += vy;
+            //x += vx;
+            //y += vy;
+        }
+        private void fajl()
+        {
+            StreamReader sr = new StreamReader("instructions.txt");
+            NPC.vx = float.Parse(sr.ReadLine());
+            NPC.vy = float.Parse(sr.ReadLine());
+            return;
         }
     }
 }

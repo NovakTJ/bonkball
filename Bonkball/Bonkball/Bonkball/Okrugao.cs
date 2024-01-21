@@ -20,9 +20,15 @@ namespace Bonkball
             ay = 0;
             vx = 0;
             vy = 0;
-            x = 0;
-            y = 0;
+            x = xx;
+            y = yy;
         }
-        
+        public void tick()
+        {
+            x += vx;
+            y += vy;
+            vx += ax;
+            vy += ay;
+        }
     }
 }

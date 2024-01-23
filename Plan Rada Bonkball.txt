@@ -55,5 +55,5 @@
 	Deep q izracuna xReward za Svaku Akciju (velika slozenost) i onda radi kao i obican Q.
 	Nakon izabrane akcije se radi backpropagation
 	
-	
-	Ovo ne deluje tacno isk.
+	RESENJE:
+		Izracuna xreward za svaku akciju koja sada moze da se uradi, ali je to samo poslednji sloj a svi ostali slojevi su isti. (svaki output neuron je dobrota jedne akcije). Tako da ni nije tolika slozenost.

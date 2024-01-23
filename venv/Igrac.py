@@ -131,18 +131,14 @@ class Lopta:
             by = yboundary
         return bx, by
 
-def initial_instructions():
+def initial_instructions(igraci):
     with open(fname,"w") as file:
-        pass
+        file.write(str(len(igraci))+"\n")
 
 
 def write_instructions(igraci,lopta,i):
     with open(fname,"a") as file:
-        file.write("potez\n"+str(i))
-        file.write("\n")
-        file.write(str(len(igraci)))
-        file.write("\n")
-        file.write(f'{lopta.x} {lopta.y} \n')
+        file.write(f'potez\n{i}\n{lopta.x}\n{lopta.y}\n')
         if lopta.team is None:
             file.write("0")
         else:
@@ -150,12 +146,9 @@ def write_instructions(igraci,lopta,i):
         file.write("\n")
         
         for igrac in igraci:
-            file.write(str(igrac.id)+"\n")
-            file.write(str(igrac.team)+"\n")
-            file.write(f'{igrac.x} {igrac.y} \n')
-            file.write(str(igrac.message))
-            file.write("\n")
+            file.write(f'{igrac.id}\n{igrac.team}\n{igrac.x}\n{igrac.y}\n{igrac.message}\n')
             file.write("1\n" if (igrac.ima_loptu) else "0\n")
+
             file.write("\n")
 
             
@@ -180,12 +173,12 @@ def redosled(igraci,lopta,i,draw):
 draw=True
 fname="..\\Bonkball\\Bonkball\\Bonkball\\bin\\Debug\\instructions.txt"
 lopta=Lopta(10,10)
-igraci=[]
-initial_instructions()
+igraci=[] #PRVO PLAVI IGRACI (1) PA CRVENI IGRACI (-1)
 Mitro = Igrac(50.5,90,team=-1,vx=-1,vy=-2,message="M")
 Vlaho = Igrac(11,11,team=1,vx=0,vy=0)
 igraci.append(Mitro)
 igraci.append(Vlaho)
+initial_instructions(igraci)
 
-for i in range(0,10000):
+for i in range(0,100):
     redosled(igraci,lopta,i,draw)

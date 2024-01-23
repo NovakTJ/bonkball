@@ -16,3 +16,13 @@ C:\Users\Novak\Desktop\Novi bonkball\bonkball\bonkball\Bonkball\Bonkball\Bonkbal
 C:\Users\Novak\Desktop\Novi bonkball\bonkball\bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.csproj.GenerateResource.cache
 C:\Users\Novak\Desktop\Novi bonkball\bonkball\bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.exe
 C:\Users\Novak\Desktop\Novi bonkball\bonkball\bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.pdb
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\bin\Debug\Bonkball.exe.config
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\bin\Debug\Bonkball.exe
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\bin\Debug\Bonkball.pdb
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.csprojAssemblyReference.cache
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.Form1.resources
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.Properties.Resources.resources
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.csproj.GenerateResource.cache
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.csproj.CoreCompileInputs.cache
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.exe
+C:\Users\JovNov\Desktop\Bonkballs\Bonkball\Bonkball\Bonkball\Bonkball\obj\Debug\Bonkball.pdb

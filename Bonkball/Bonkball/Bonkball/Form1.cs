@@ -17,28 +17,47 @@ namespace Bonkball
         {
             InitializeComponent();
         }
-        Graphics G;
-        Pen p;
-        Brush b;
-        float vx,x,y;
-        float vy;
         float speed=3;
-        Okrugao Protagonist;
-        Okrugao NPC;
-        List<Okrugao> L;
+        Ball ball;
+        Brush red;
+        Brush blue;
+        Pokretljiv Protagonist;
+        List<Pokretljiv> L;
+        List<Crtez> Plavi;
+        List<Crtez> Crveni;
+        bool PlaviImajuLoptu;
+        StreamReader sr;
+        int numberOfPlayers = 0;
         private void Form1_Load(object sender, EventArgs e)
         {
             //G = pictureBox1.CreateGraphics();
-            p = new Pen(Color.Red);
-            b = new SolidBrush(Color.Red);
-            Protagonist = new Okrugao(10, 10);
-            Protagonist.vx = 2; Protagonist.vy = 0;
-            NPC = new Okrugao(100, 100);
-            L = new List<Okrugao>();
+            sr = new StreamReader("instructions.txt");
+            ball = new Ball();
+            PlaviImajuLoptu = true;
+            red = new SolidBrush(Color.Red);
+            blue = new SolidBrush(Color.Blue);
+            Protagonist = new Pokretljiv(10, 10);
+            Protagonist.vx = 0; Protagonist.vy = 0;
+            L = new List<Pokretljiv>();
+            Plavi = new List<Crtez>();
+            Crveni = new List<Crtez>();
             L.Add(Protagonist);
-            L.Add(NPC);
+            initial_instructions();
         }
         int i = 1;
+
+        private void initial_instructions()
+        {
+            numberOfPlayers = int.Parse(sr.ReadLine());
+            for (int i = 0; i < numberOfPlayers / 2; i++)
+            {
+                Plavi.Add(new Crtez());
+            }
+            for (int i = 0; i < numberOfPlayers / 2; i++)
+            {
+                Crveni.Add(new Crtez());
+            }
+        }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -82,33 +101,85 @@ namespace Bonkball
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            foreach (Okrugao lik in L)
+
+            if (PlaviImajuLoptu)
             {
+                foreach (Crtez lik in Plavi)
+                {
+                    lik.draw(e.Graphics, blue);
 
-                e.Graphics.FillEllipse(b, lik.x, lik.y, 20, 20);
-
+                }
+                foreach (Crtez lik in Crveni)
+                {
+                    lik.draw(e.Graphics, red);
+                }
             }
+            else
+            {
+                foreach (Crtez lik in Crveni)
+                {
+                    lik.draw(e.Graphics, red);
+                }
+                foreach (Crtez lik in Plavi)
+                {
+                    lik.draw(e.Graphics, blue);
+                }
+            }
+            foreach(Pokretljiv lik in L)
+            {
+                e.Graphics.FillEllipse(red, lik.x, lik.y, 20, 20);
+            }
+            ball.draw(e.Graphics);
             label1.Text = i.ToString();
             
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
             pictureBox1.Refresh();
             fajl();
-            foreach (Okrugao lik in L){
-                lik.tick();
-            }
-            //Protagonist.tick();
-            i++;
-            //x += vx;
-            //y += vy;
+            
         }
         private void fajl()
         {
-            StreamReader sr = new StreamReader("instructions.txt");
-            NPC.vx = float.Parse(sr.ReadLine());
-            NPC.vy = float.Parse(sr.ReadLine());
+            string potez;
+            string tim_sa_loptom;
+            //StreamReader sr = new StreamReader("instructions.txt");
+            if (sr.EndOfStream)
+            {
+                return;
+            }
+            potez=sr.ReadLine(); //"potez"
+            if (potez != "potez")
+            {
+                throw new Exception("ne poklapa se citanje");
+            }
+            sr.ReadLine(); //#potez
+            ball.update(float.Parse(sr.ReadLine()), float.Parse(sr.ReadLine()));
+            tim_sa_loptom = sr.ReadLine();
+            PlaviImajuLoptu = (tim_sa_loptom == "1");
+
+            foreach (Crtez igrac in Plavi)
+            {
+                sr.ReadLine(); //id
+                sr.ReadLine(); //1 (plavi) ili -1 (crveni)
+                igrac.update(float.Parse(sr.ReadLine()), float.Parse(sr.ReadLine()));
+                sr.ReadLine(); //message
+                sr.ReadLine(); //ima loptu (1)
+                sr.ReadLine(); // \n
+            }
+
+            foreach (Crtez igrac in Crveni)
+            {
+                sr.ReadLine(); //id
+                sr.ReadLine(); //1 (plavi) ili -1 (crveni)
+                igrac.update(float.Parse(sr.ReadLine()), float.Parse(sr.ReadLine()));
+                sr.ReadLine(); //message
+                sr.ReadLine(); //ima loptu (1)
+                sr.ReadLine(); // \n
+            }
+
             return;
         }
     }

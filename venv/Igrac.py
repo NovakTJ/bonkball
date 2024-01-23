@@ -102,7 +102,7 @@ class Lopta:
                 mindist=dist
                 kandidat=igrac
             if dist==mindist:
-                if self.team==igrac.team:
+                if not self.team==igrac.team:
                     mindist = dist
                     kandidat = igrac
                     print("konflikt za loptu!")

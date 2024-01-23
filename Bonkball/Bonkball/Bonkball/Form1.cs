@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Globalization;
 
 namespace Bonkball
 {
     public partial class Form1 : Form
     {
+        NumberFormatInfo nbf;
         public Form1()
         {
             InitializeComponent();
@@ -30,15 +32,17 @@ namespace Bonkball
         int numberOfPlayers = 0;
         private void Form1_Load(object sender, EventArgs e)
         {
+            nbf = System.Globalization.NumberFormatInfo.InvariantInfo;
             //G = pictureBox1.CreateGraphics();
             sr = new StreamReader("instructions.txt");
             ball = new Ball();
             PlaviImajuLoptu = true;
             red = new SolidBrush(Color.Red);
             blue = new SolidBrush(Color.Blue);
-            Protagonist = new Pokretljiv(10, 10);
+            Protagonist = new Pokretljiv(49.5f, 88);
             Protagonist.vx = 0; Protagonist.vy = 0;
             L = new List<Pokretljiv>();
+            L.Add(Protagonist);
             Plavi = new List<Crtez>();
             Crveni = new List<Crtez>();
             L.Add(Protagonist);
@@ -127,7 +131,7 @@ namespace Bonkball
             }
             foreach(Pokretljiv lik in L)
             {
-                e.Graphics.FillEllipse(red, lik.x, lik.y, 20, 20);
+                e.Graphics.FillEllipse(red, lik.x-10, lik.y-10, 20, 20);
             }
             ball.draw(e.Graphics);
             label1.Text = i.ToString();
@@ -162,9 +166,14 @@ namespace Bonkball
 
             foreach (Crtez igrac in Plavi)
             {
+                float xx;
+                float yy;
                 sr.ReadLine(); //id
                 sr.ReadLine(); //1 (plavi) ili -1 (crveni)
-                igrac.update(float.Parse(sr.ReadLine()), float.Parse(sr.ReadLine()));
+                xx = float.Parse(sr.ReadLine(),nbf);
+                yy= float.Parse(sr.ReadLine(),nbf);
+                igrac.update(xx, yy);
+                label2.Text = xx.ToString() + " " + yy.ToString();
                 sr.ReadLine(); //message
                 sr.ReadLine(); //ima loptu (1)
                 sr.ReadLine(); // \n
@@ -174,13 +183,18 @@ namespace Bonkball
             {
                 sr.ReadLine(); //id
                 sr.ReadLine(); //1 (plavi) ili -1 (crveni)
-                igrac.update(float.Parse(sr.ReadLine()), float.Parse(sr.ReadLine()));
+                igrac.update(float.Parse(sr.ReadLine(),nbf), float.Parse(sr.ReadLine(),nbf));
                 sr.ReadLine(); //message
                 sr.ReadLine(); //ima loptu (1)
                 sr.ReadLine(); // \n
             }
 
             return;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Bonkball
         }
         public void draw(Graphics g, Brush b)
         {
-            g.FillEllipse(b, x, y, 20, 20);
+            g.FillEllipse(b, x-10, y-10, 20, 20);
             return;
         }
         public void write_message()

@@ -20,7 +20,7 @@ namespace Bonkball
         }
         public void draw(Graphics g)
         {
-            g.FillEllipse(white, x, y, 3, 3);
+            g.FillEllipse(white, x-1.5f, y-1.5f, 3, 3);
             return;
         }
         public void update(float xx,float yy)

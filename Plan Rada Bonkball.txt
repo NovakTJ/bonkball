@@ -1,5 +1,3 @@
-1. napravi klase u C#, testiraj
-
 2. ML FRAMEWORK:
 	10 instanci deep q mreze. kako ce estimateovati najbolju sledecu akciju (q jednacina)?
 	Kako da resim to sto je kretanje kontinualno - nema jasnih akcija?
@@ -57,3 +55,5 @@
 	
 	RESENJE:
 		Izracuna xreward za svaku akciju koja sada moze da se uradi, ali je to samo poslednji sloj a svi ostali slojevi su isti. (svaki output neuron je dobrota jedne akcije). Tako da ni nije tolika slozenost.
+
+OH SHIT mozes da radis konvolucije umesto full connected!

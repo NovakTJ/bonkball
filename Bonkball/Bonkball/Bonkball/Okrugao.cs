@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bonkball
 {
-    public class Okrugao
+    public class Pokretljiv
     {
         public float ax;
         public float ay;
@@ -14,7 +14,7 @@ namespace Bonkball
         public float vy;
         public float x;
         public float y;
-        public Okrugao(float xx = 0, float yy = 0)
+        public Pokretljiv(float xx = 0, float yy = 0)
         {
             ax = 0;
             ay = 0;

@@ -3,7 +3,7 @@ yboundary=100
 debljina=20
 class Igrac:
     topspeed=20
-    def __init__(self,x,y,team,vx=0,vy=0,id=0):
+    def __init__(self,x,y,team,vx=0,vy=0,id=0,message=""):
         self.x=x
         self.y=y
         self.vx=vx
@@ -11,6 +11,7 @@ class Igrac:
         self.team = team
         self.id=id
         self.ima_loptu=False
+        self.message=message
     def napisi(self):
         print(self.x,self.y,self.vx,self.vy)
 
@@ -63,13 +64,13 @@ class Igrac:
 
 class Lopta:
     topspeed=100
-    def __init__(self,x,y,team=None,posed=None):
+    def __init__(self,x,y,team=None,vlasnik=None):
         self.x=x
         self.y=y
         self.vx=0
         self.vy=0
         self.team=team
-        self.posed=posed
+        self.vlasnik=vlasnik
 
     def napisi(self):
         print(f'lopta je na {self.x},{self.y}')
@@ -92,7 +93,7 @@ class Lopta:
         if (novi_igrac_sa_posed) is not None:
 
             (novi_igrac_sa_posed).dobio_loptu()
-        return self.posed
+        return self.vlasnik
     def determine_posed(self,igraci):
         kandidat=None
         mindist=debljina
@@ -101,17 +102,18 @@ class Lopta:
             if dist<mindist:
                 mindist=dist
                 kandidat=igrac
-            if dist==mindist:
-                if self.team==igrac.team:
+            elif dist==mindist:
+                if not self.team==igrac.team:
                     mindist = dist
                     kandidat = igrac
                     print("konflikt za loptu!")
-        print(mindist, "mindist")
+        #print(mindist, "mindist")
         if kandidat is not None:
-            print("")
-            print("dajem loptu ",end="")
-            kandidat.napisi()
-            print("")
+            pass
+            #print("")
+            #print("dajem loptu ",end="")
+            #kandidat.napisi()
+            #print("")
         return kandidat
 
 
@@ -129,27 +131,54 @@ class Lopta:
             by = yboundary
         return bx, by
 
+def initial_instructions(igraci):
+    with open(fname,"w") as file:
+        file.write(str(len(igraci))+"\n")
 
 
-lopta=Lopta(10,10)
-igraci=[]
-Mitro = Igrac(50.5,90,team=-1,vx=-1,vy=-2)
-Vlaho = Igrac(11,11,team=1,vx=0,vy=0)
-igraci.append(Mitro)
-igraci.append(Vlaho)
+def write_instructions(igraci,lopta,i):
+    with open(fname,"a") as file:
+        file.write(f'potez\n{i}\n{lopta.x}\n{lopta.y}\n')
+        if lopta.team is None:
+            file.write("0")
+        else:
+            file.write(str(lopta.team))
+        file.write("\n")
+        
+        for igrac in igraci:
+            file.write(f'{igrac.id}\n{igrac.team}\n{igrac.x}\n{igrac.y}\n{igrac.message}\n')
+            file.write("1\n" if (igrac.ima_loptu) else "0\n")
 
-def redosled(igraci,lopta):
-    print("\n\n\nnovi potez")
+            file.write("\n")
+
+            
+
+
+def redosled(igraci,lopta,i,draw):
+    #print("\n\n\nnovi potez")
     for igrac in igraci:
         #igrac.ima_loptu=False
         #print("pozeri:", igrac.ima_loptu)
         igrac.move()
     lopta.tick_and_posed(igraci)
+    if draw:
+        write_instructions(igraci, lopta,i)
     for igrac in igraci:
         igrac.odluci_sledeci()
         igrac.broad()
-        igrac.napisi()
+        #igrac.napisi()
         #print(igrac)
 
-for i in range(0,50):
-    redosled(igraci,lopta)
+
+draw=True
+fname="..\\Bonkball\\Bonkball\\Bonkball\\bin\\Debug\\instructions.txt"
+lopta=Lopta(10,10)
+igraci=[] #PRVO PLAVI IGRACI (1) PA CRVENI IGRACI (-1)
+Mitro = Igrac(50.5,90,team=-1,vx=-1,vy=-2,message="M")
+Vlaho = Igrac(11,11,team=1,vx=0,vy=0)
+igraci.append(Mitro)
+igraci.append(Vlaho)
+initial_instructions(igraci)
+
+for i in range(0,100):
+    redosled(igraci,lopta,i,draw)

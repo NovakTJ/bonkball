@@ -56,4 +56,9 @@
 	Nakon izabrane akcije se radi backpropagation
 	
 	
-	Ovo ne deluje tacno isk.
+	Moyda da samo ne radim q learning nego nes drugo?
+	
+	OKEJ BREAKTHROUGH
+	feedujem 9 inputa kroy istu mrezu. umesto da svako ima svoju odvojenu pamet bice ovako.
+	alternatively, svako ima svoju pamet i onda se igra manje fluidna igra ali mogu da stavljam atribute.
+	okej moyda mogu samo da igram pepa gvardiolu... ne nije isto! onda nema ai komunikacije...
